@@ -1,9 +1,14 @@
 package com.triple.lmsservice;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@Controller
 public class MainPage {
 
     @RequestMapping("/")
@@ -13,10 +18,24 @@ public class MainPage {
     }
 
     @RequestMapping("/hello")
-    public String hello() {
+    public void hello(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String msg =  "hello \r\n LMS-Service website!";
+        response.setContentType("text/html;charset=UTF-8");
 
-        return msg;
+        PrintWriter printWriter = response.getWriter();
+
+        String msg =  "<html>" +
+                "<head>" +
+                "<meta charset='UTF-8'>" +
+                "</head>" +
+                "<body>" +
+                "<p>hello</p>" +
+                "<p>LMS-Service website!</p>" +
+                "<p>안녕하세요!</p>" +
+                "</body>" +
+                "</html>";
+
+        printWriter.write(msg);
+        printWriter.close();
     }
 }
