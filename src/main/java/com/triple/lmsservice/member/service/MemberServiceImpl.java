@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Service
 public class MemberServiceImpl implements MemberService{
 
-
     private final MemberRepository memberRepository;
     @Override
     public boolean register(MemberInput parameter) {
@@ -23,8 +22,8 @@ public class MemberServiceImpl implements MemberService{
         member.setPassWord(parameter.getPassword());
         member.setPhoneNumber(parameter.getPhoneNumber());
         member.setRegDt(LocalDateTime.now());
-
         memberRepository.save(member);
+
         return false;
     }
 }

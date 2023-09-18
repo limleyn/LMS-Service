@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LmsServiceApplication {
 
     //2023.09.17
-
     public static void main(String[] args) {
         SpringApplication.run(LmsServiceApplication.class, args);
     }
