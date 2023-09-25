@@ -47,8 +47,6 @@ public class MemberController {
         return "member/find_password_result";
     }
 
-
-
     @GetMapping  ("/member/register")
     public String register() {
 

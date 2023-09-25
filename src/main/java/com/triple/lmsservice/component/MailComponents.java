@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
 
-import static java.awt.SystemColor.text;
 
 @RequiredArgsConstructor
 @Component

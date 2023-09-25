@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @Entity
-public class Member {
+public class Member implements MemberCode{
 
     @Id
     private String userId;
 
     private String userName;
-    private String passWord;
+    private String password;
     private String phoneNumber;
     private LocalDateTime regDt;
 
@@ -31,4 +31,9 @@ public class Member {
 
     private String resetPasswordKey;
     private LocalDateTime resetPasswordLimitDt;
+
+    private boolean  adminYn;
+
+    //이용 가능한 상태, 정지 상태
+    private String userStatus;
 }
