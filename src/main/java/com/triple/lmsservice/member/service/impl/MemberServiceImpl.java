@@ -12,8 +12,7 @@ import com.triple.lmsservice.member.model.ResetPasswordInput;
 import com.triple.lmsservice.member.repository.MemberRepository;
 import com.triple.lmsservice.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.asm.Advice;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
