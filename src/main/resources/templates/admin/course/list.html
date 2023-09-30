@@ -12,6 +12,15 @@
             border:solid 1px #000;
         }
 
+        .pager {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
+
     </style>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -24,8 +33,11 @@
     <h1>강좌 관리</h1>
     <div th:replace="fragments/layout.html :: fragement-admin-body-menu"></div>
 
-    <div class="list">
+    <div>
+        <a href="/admin/course/add.do">강좌 등록</a>
+    </div>
 
+    <div class="list">
         <table>
             <thead>
                 <tr>
@@ -33,24 +45,31 @@
                     <th>
                         강좌명
                     </th>
+
                     <th>
-                        순서
-                    </th>
-                    <th>
-                        사용여부
-                    </th>
-                    <th>
-                        비고
+                        등록일
                     </th>
                 </tr>
             </thead>
             <tbody>
-
+            <tr th:each="x : ${list}">
+                <td th:text="${x.seq}">1</td>
+                <td>
+                    <p>
+                        <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${x.regDt}">2023.09.25</p>
+                </td>
+            </tr>
             </tbody>
         </table>
 
-    </div>
+        <div class="pager" th:utext="${pager}">
+        </div>
 
+    </div>
 
 </body>
 </html>

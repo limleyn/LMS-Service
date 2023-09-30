@@ -1,10 +1,17 @@
 package com.triple.lmsservice.course.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 public class Course {
@@ -25,5 +32,8 @@ public class Course {
     long price;
     long salePrice;
     LocalDateTime saleEndDt;
+
+    LocalDateTime regDt; //등록일(추가날짜)
+    LocalDateTime udtDt; //수정일(수정날짜)
 
 }
