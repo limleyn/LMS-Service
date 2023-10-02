@@ -20,6 +20,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    long categoryId;
+
     String imagePath;
     String keyword;
     String subject;
@@ -31,7 +33,7 @@ public class Course {
     String contents;
     long price;
     long salePrice;
-    LocalDateTime saleEndDt;
+    LocalDate saleEndDt;
 
     LocalDateTime regDt; //등록일(추가날짜)
     LocalDateTime udtDt; //수정일(수정날짜)

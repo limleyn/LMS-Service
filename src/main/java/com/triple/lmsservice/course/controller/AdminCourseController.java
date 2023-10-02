@@ -1,12 +1,10 @@
 package com.triple.lmsservice.course.controller;
 
-import com.triple.lmsservice.admin.dto.MemberDto;
-import com.triple.lmsservice.admin.model.MemberParam;
+import com.triple.lmsservice.admin.sevice.CategoryService;
 import com.triple.lmsservice.course.dto.CourseDto;
 import com.triple.lmsservice.course.model.CourseInput;
 import com.triple.lmsservice.course.model.CourseParam;
 import com.triple.lmsservice.course.service.CourseService;
-import com.triple.lmsservice.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,7 @@ import java.util.List;
 public class AdminCourseController extends BaseController{
 
     private final CourseService courseService;
+    private final CategoryService categoryService;
 
     @GetMapping("/admin/course/list.do")
     public String list(Model model, CourseParam parameter) {
@@ -48,6 +47,9 @@ public class AdminCourseController extends BaseController{
     @GetMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
     public String add(Model model, HttpServletRequest request, CourseInput parameter) {
 
+        //카테고리 정보를 내려줘야 함.
+        model.addAttribute("category", categoryService.list());
+
         boolean editMode = request.getRequestURI().contains("/edit.do");
         CourseDto detail = new CourseDto();
 
@@ -66,10 +68,34 @@ public class AdminCourseController extends BaseController{
         return "admin/course/add";
 
     }
-    @PostMapping("/admin/course/add.do")
-    public String addSubmit(Model model, CourseInput parameter) {
+    @PostMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
+    public String addSubmit(Model model, HttpServletRequest request, CourseInput parameter) {
 
-        boolean result = courseService.add(parameter);
+        boolean editMode = request.getRequestURI().contains("/edit.do");
+
+        if (editMode) {
+            long id = parameter.getId();
+            CourseDto existCourse = courseService.getById(id);
+            if (existCourse == null) {
+                //error 처리
+                model.addAttribute("message", "강좌정보가 존재하지 않습니다.");
+                return "common/error";
+            }
+
+            boolean result = courseService.set(parameter);
+
+        } else {
+            boolean result = courseService.add(parameter);
+        }
+
+        return "redirect:/admin/course/list.do";
+    }
+
+    @PostMapping("/admin/course/delete.do")
+    public String del(Model model, HttpServletRequest request, CourseInput parameter) {
+
+
+        boolean result = courseService.del(parameter.getIdList());
 
         return "redirect:/admin/course/list.do";
     }
