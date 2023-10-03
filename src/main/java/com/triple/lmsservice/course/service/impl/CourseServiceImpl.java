@@ -131,4 +131,12 @@ public class CourseServiceImpl implements CourseService {
         }
         return true;
     }
+
+    @Override
+    public List<CourseDto> frontList(CourseParam parameter) {
+
+        List<Course> courseList = courseRepository.findAll();
+
+        return CourseDto.of(courseList);
+    }
 }
