@@ -22,12 +22,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
-
     }
-   @Bean
+
+    @Bean
     UserAuthenticationFailureHandler getFailureHandler() {
         return new UserAuthenticationFailureHandler();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -36,17 +37,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(
-                                   "/"
+                        "/"
                         , "/member/register"
                         , "/member/email-auth"
-                        , "/member/find/password"
-                        , "/member/reset/password"
+                        , "/member/find-password"
                 )
                 .permitAll();
 
         http.authorizeRequests()
-                 .antMatchers("/admin/**")
-                 .hasAnyAuthority("ROLE_ADMIN");
+                .antMatchers("/admin/**")
+                .hasAuthority("ROLE_ADMIN");
 
         http.formLogin()
                 .loginPage("/member/login")
@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout()
-                . logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
 
@@ -66,15 +66,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(memberService)
+                .passwordEncoder(getPasswordEncoder());
 
-
-
-       auth.userDetailsService(memberService)
-               .passwordEncoder(getPasswordEncoder());
-
-
-       super.configure(auth);
+        super.configure(auth);
     }
-
 
 }

@@ -29,8 +29,8 @@ public class AdminCategoryController {
         model.addAttribute("list", list);
 
         return "admin/category/list";
-
     }
+
 
     @PostMapping("/admin/category/add.do")
     public String add(Model model, CategoryInput parameter) {
@@ -55,6 +55,5 @@ public class AdminCategoryController {
 
         return "redirect:/admin/category/list.do";
     }
-
 
 }
