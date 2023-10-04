@@ -40,7 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .sortValue(0)
                 .build();
         categoryRepository.save(category);
-
         return true;
     }
 
